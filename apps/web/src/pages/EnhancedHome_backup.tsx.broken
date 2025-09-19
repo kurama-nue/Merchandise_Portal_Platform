@@ -1,0 +1,848 @@
+import { useState, useEffect, Suspense } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { 
+  ArrowRight, 
+  Star, 
+  Sparkles,
+  Zap,
+  Camera,
+  Play
+} from 'lucide-react';
+
+// Import existing components
+import { EnhancedProductShowcase } from '../components/visual/EnhancedProductShowcase';
+import { AdvancedLoading } from '../components/visual/AdvancedLoading';
+import QuickView from '../components/product/QuickView';
+import type { Product } from '../types/product';
+
+// Interactive Feature Cards Component
+const InteractiveFeatureCard = ({ feature, index }: any) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: index * 0.2 }}
+      viewport={{ once: true }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative overflow-hidden"
+    >
+      <div className="relative p-8 bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-gray-200">
+        {/* Animated background */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
+        />
+        
+        {/* Icon container */}
+        <motion.div
+          className="relative mb-6"
+          animate={isHovered ? { scale: 1.1, rotateY: 10 } : { scale: 1, rotateY: 0 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg">
+            <feature.icon />
+          </div>
+          
+          {/* Floating particles */}
+          {isHovered && (
+            <div className="absolute inset-0">
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-blue-400 rounded-full"
+                  style={{
+                    left: `${20 + Math.random() * 60}%`,
+                    top: `${20 + Math.random() * 60}%`,
+                  }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                />
+              ))}
+            </div>
+          )}
+        </motion.div>
+        
+        <div className="relative">
+          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+            {feature.title}
+          </h3>
+          <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+          
+          {/* Hover arrow */}
+          <motion.div
+            className="flex items-center mt-4 text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            animate={isHovered ? { x: 5 } : { x: 0 }}
+          >
+            Learn more <ArrowRight className="w-4 h-4 ml-2" />
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Testimonial Carousel Component
+const TestimonialCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      role: "Fashion Designer",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b1ac?auto=format&fit=crop&w=150&q=80",
+      text: "The 3D product visualization is absolutely revolutionary. I can see every detail before purchasing!",
+      rating: 5
+    },
+    {
+      name: "Mike Chen",
+      role: "Tech Enthusiast",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
+      text: "Being able to customize products in real-time 3D is a game-changer. Quality is exceptional!",
+      rating: 5
+    },
+    {
+      name: "Emily Rodriguez",
+      role: "Creative Director",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80",
+      text: "The AR preview feature helped me see exactly how the backpack would look. Perfect purchase!",
+      rating: 5
+    }
+  ];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <div className="relative max-w-4xl mx-auto">
+      <div className="overflow-hidden rounded-3xl">
+        <motion.div
+          className="flex"
+          animate={{ x: `-${currentIndex * 100}%` }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        >
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="w-full flex-shrink-0 p-8 bg-white rounded-3xl shadow-xl">
+              <div className="flex items-center mb-6">
+                <img
+                  src={testimonial.avatar}
+                  alt={testimonial.name}
+                  className="w-16 h-16 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
+                  <p className="text-gray-600">{testimonial.role}</p>
+                </div>
+                <div className="ml-auto flex gap-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+              </div>
+              <p className="text-lg text-gray-700 leading-relaxed italic">
+                "{testimonial.text}"
+              </p>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+      
+      {/* Indicators */}
+      <div className="flex justify-center mt-6 gap-2">
+        {testimonials.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`w-3 h-3 rounded-full transition-all ${
+              index === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Testimonial Component
+const TestimonialCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      role: "Designer",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b9e3?w=150&h=150&fit=crop&crop=face",
+      content: "The 3D visualization completely changed how I shop for merchandise. Being able to see every detail before purchasing is incredible!",
+      rating: 5
+    },
+    {
+      name: "Mike Chen",
+      role: "Marketing Director",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      content: "Outstanding quality and the customization options are endless. The AR preview feature saved us so much time in decision making.",
+      rating: 5
+    },
+    {
+      name: "Emily Rodriguez",
+      role: "Startup Founder",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      content: "The platform's immersive experience made ordering branded merchandise for our team absolutely effortless. Highly recommended!",
+      rating: 5
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            What Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Customers</span> Say
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Join thousands of satisfied customers who've transformed their merchandise experience
+          </p>
+        </motion.div>
+
+        <div className="relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20"
+            >
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="relative"
+                >
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-400">
+                    <img
+                      src={testimonials[currentIndex].avatar}
+                      alt={testimonials[currentIndex].name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute -inset-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-20 blur-sm"
+                  />
+                </motion.div>
+                
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex justify-center md:justify-start mb-4">
+                    {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.1 }}
+                      >
+                        <Star className="w-6 h-6 text-yellow-400 fill-current" />
+                      </motion.div>
+                    ))}
+                  </div>
+                  
+                  <blockquote className="text-xl md:text-2xl text-white mb-6 leading-relaxed">
+                    "{testimonials[currentIndex].content}"
+                  </blockquote>
+                  
+                  <div>
+                    <p className="text-lg font-semibold text-white">{testimonials[currentIndex].name}</p>
+                    <p className="text-gray-400">{testimonials[currentIndex].role}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation Dots */}
+          <div className="flex justify-center mt-8 gap-3">
+            {testimonials.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentIndex 
+                    ? 'bg-gradient-to-r from-blue-400 to-purple-400 w-8' 
+                    : 'bg-white/30 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Enhanced Home Component
+const EnhancedHome = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <AdvancedLoading type="minimal" />;
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-900">
+      <EnhancedHero />
+      
+      {/* Features Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Revolutionary <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Features</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Experience the future of merchandise shopping with cutting-edge technology
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <InteractiveFeatureCard
+              icon={Cube}
+              title="3D Visualization"
+              description="Rotate, zoom, and explore products in stunning 3D detail before making your decision."
+              gradient="from-blue-600 to-cyan-600"
+              delay={0}
+            />
+            <InteractiveFeatureCard
+              icon={Sparkles}
+              title="AR Preview"
+              description="See how products look in your space with our advanced augmented reality technology."
+              gradient="from-purple-600 to-pink-600"
+              delay={0.2}
+            />
+            <InteractiveFeatureCard
+              icon={Zap}
+              title="Real-time Customization"
+              description="Personalize colors, materials, and designs with instant visual feedback."
+              gradient="from-emerald-600 to-teal-600"
+              delay={0.4}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Product Showcase */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Featured <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">Collection</span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Discover our most popular items with interactive previews
+            </p>
+          </motion.div>
+          
+          <EnhancedProductShowcase />
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <TestimonialCarousel />
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-900 via-purple-900 to-emerald-900">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Ready to <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Transform</span> Your Experience?
+            </h2>
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Join the future of merchandise shopping with our revolutionary platform
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/products">
+                <motion.button
+                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)" }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 flex items-center gap-3"
+                >
+                  <ShoppingBag className="w-5 h-5" />
+                  Start Shopping
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300 flex items-center gap-3"
+              >
+                <Camera className="w-5 h-5" />
+                Try AR Demo
+              </motion.button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default EnhancedHome;
+
+  const features = [
+    {
+      icon: Camera,
+      title: "3D Product Visualization",
+      description: "Experience products in stunning 3D detail with real-time interaction and 360-degree views"
+    },
+    {
+      icon: Zap,
+      title: "Instant Customization",
+      description: "Customize colors, materials, and designs in real-time with immediate visual feedback"
+    },
+    {
+      icon: Sparkles,
+      title: "AR Preview",
+      description: "See how products look in your space with advanced augmented reality technology"
+    },
+    {
+      icon: Shield,
+      title: "Premium Quality",
+      description: "Hand-picked materials and exceptional craftsmanship in every product we offer"
+    }
+  ];
+
+  const categories = [
+    {
+      name: 'Clothing',
+      description: 'Premium apparel for every style',
+      image: 'https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=1200&q=80',
+      gradient: 'from-blue-600 to-purple-600'
+    },
+    {
+      name: 'Electronics',
+      description: 'Tech with a personal touch',
+      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=80',
+      gradient: 'from-purple-600 to-pink-600'
+    },
+    {
+      name: 'Accessories',
+      description: 'Complete your look',
+      image: 'https://images.unsplash.com/photo-1520975693411-c6155b310fd1?auto=format&fit=crop&w=1200&q=80',
+      gradient: 'from-green-600 to-teal-600'
+    }
+  ];
+
+  if (isLoading) {
+    return (
+      <AdvancedLoading
+        type="assembly"
+        text="Loading Premium Experience"
+        isVisible={isLoading}
+        progress={75}
+        showProgress={true}
+      />
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white overflow-hidden">
+      {/* Hero Section with 3D */}
+      <Suspense fallback={<AdvancedLoading type="minimal" isVisible={true} />}>
+        <Hero3D />
+      </Suspense>
+
+      {/* Scroll Triggered Animations Section */}
+      <Suspense fallback={<div className="h-screen bg-black" />}>
+        <ScrollTriggeredAnimations />
+      </Suspense>
+
+      {/* Enhanced Features Section */}
+      <section className="py-32 px-4 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
+        {/* Background Animation */}
+        <motion.div
+          style={{ y: backgroundY }}
+          className="absolute inset-0 opacity-30"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100" />
+        </motion.div>
+        
+        <div className="max-w-7xl mx-auto relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+              Revolutionary Shopping
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Experience the future of e-commerce with our cutting-edge 3D technology and immersive product interactions
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <InteractiveFeatureCard key={feature.title} feature={feature} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Product Showcase */}
+      <Suspense fallback={<AdvancedLoading type="particles" isVisible={true} />}>
+        <EnhancedProductShowcase />
+      </Suspense>
+
+      {/* Interactive Demo Section */}
+      <section className="py-32 px-4 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+                See It in
+                <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                  {" "}Action
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+                Watch how our revolutionary 3D product visualization transforms the online shopping experience. 
+                Interact with products like never before.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowVideoModal(true)}
+                  className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3"
+                >
+                  <Play className="w-5 h-5" />
+                  Watch Demo
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+                
+                <Link to="/products">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
+                  >
+                    Explore Now
+                  </motion.button>
+                </Link>
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600 p-1">
+                <div className="w-full h-full bg-black rounded-2xl flex items-center justify-center relative overflow-hidden">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setShowVideoModal(true)}
+                    className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white border border-white/30 hover:bg-white/30 transition-all duration-300"
+                  >
+                    <Play className="w-8 h-8 ml-1" />
+                  </motion.button>
+                  
+                  {/* Animated rings */}
+                  <motion.div
+                    className="absolute inset-0 border-2 border-white/20 rounded-2xl"
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <motion.div
+                    className="absolute inset-4 border border-white/10 rounded-xl"
+                    animate={{ scale: [1, 1.03, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                  />
+                </div>
+              </div>
+              
+              {/* Floating elements */}
+              <motion.div
+                className="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white text-xl"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              >
+                🎬
+              </motion.div>
+              
+              <motion.div
+                className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white text-2xl"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                🚀
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Showcase */}
+      <section className="py-32 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+              Shop by Category
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Discover our curated collections designed for every lifestyle and preference
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {categories.map((category, index) => (
+              <motion.div
+                key={category.name}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+                className="group relative h-96 rounded-3xl overflow-hidden shadow-xl cursor-pointer"
+              >
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                
+                <div className={`absolute inset-0 bg-gradient-to-t ${category.gradient} opacity-60 group-hover:opacity-70 transition-opacity duration-300`} />
+                
+                <div className="absolute inset-0 flex flex-col justify-end p-8">
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                  >
+                    <h3 className="text-3xl font-bold text-white mb-2">{category.name}</h3>
+                    <p className="text-white/90 mb-4">{category.description}</p>
+                    <Link
+                      to={`/products?category=${category.name.toLowerCase()}`}
+                      className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full font-semibold hover:bg-white/30 transition-all duration-300"
+                    >
+                      Explore Collection
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Customer Testimonials */}
+      <section className="py-32 px-4 bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+              Loved by Customers
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              See what our customers are saying about their revolutionary shopping experience
+            </p>
+          </motion.div>
+
+          <TestimonialCarousel />
+        </div>
+      </section>
+
+      {/* Newsletter CTA */}
+      <section className="py-32 px-4 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-white/5"
+              style={{
+                width: Math.random() * 200 + 50,
+                height: Math.random() * 200 + 50,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.1, 0.2, 0.1],
+              }}
+              transition={{
+                duration: Math.random() * 5 + 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="max-w-7xl mx-auto text-center relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              Stay Updated
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+              Be the first to experience new 3D features, exclusive products, and special offers
+            </p>
+            
+            <motion.form
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
+            >
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-6 py-4 rounded-full bg-white/10 text-white placeholder:text-gray-400 border border-white/20 focus:border-white/40 focus:outline-none focus:ring-2 focus:ring-white/10 backdrop-blur-sm"
+              />
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:shadow-lg transition-all duration-300 flex items-center gap-2"
+              >
+                Subscribe
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </motion.form>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Modals */}
+      {selectedProduct && (
+        <QuickView
+          product={selectedProduct}
+          isOpen={!!selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
+
+      {configuratorProduct && (
+        <ProductConfigurator3D
+          product={configuratorProduct}
+          isOpen={!!configuratorProduct}
+          onClose={() => setConfiguratorProduct(null)}
+          onSave={(config) => {
+            console.log('Saved configuration:', config);
+            setConfiguratorProduct(null);
+          }}
+        />
+      )}
+
+      {/* Video Modal */}
+      {showVideoModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setShowVideoModal(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0.8 }}
+            className="relative max-w-4xl w-full aspect-video bg-black rounded-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowVideoModal(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+            >
+              ✕
+            </button>
+            <div className="w-full h-full flex items-center justify-center text-white">
+              <p className="text-xl">Demo video would play here</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </div>
+  );
+};
+
+export default EnhancedHome;

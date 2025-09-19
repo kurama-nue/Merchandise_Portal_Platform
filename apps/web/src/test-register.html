@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .status-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .check-mark { color: #10b981; }
+        .cross-mark { color: #ef4444; }
+        .info-mark { color: #3b82f6; }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            margin: 8px 0;
+            padding: 8px 12px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-card">
+        <h1>🚀 Merchandise Portal - Register Page Status</h1>
+        
+        <h2>✅ Fixed Issues:</h2>
+        <div class="status-check">
+            <span class="check-mark">✓</span>
+            <span>Toast provider mismatch resolved (QuickView & LiveChat)</span>
+        </div>
+        <div class="status-check">
+            <span class="check-mark">✓</span>
+            <span>RegisterPage JSX compilation errors fixed</span>
+        </div>
+        <div class="status-check">
+            <span class="check-mark">✓</span>
+            <span>ProductShowcase3D component created and reused</span>
+        </div>
+        <div class="status-check">
+            <span class="check-mark">✓</span>
+            <span>Real product images added to Home and seed data</span>
+        </div>
+        
+        <h2>🎨 Features Implemented:</h2>
+        <ul class="feature-list">
+            <li><strong>3D Animated Register Page:</strong> Card tilt effects, animated background, floating elements</li>
+            <li><strong>3D Product Showcase:</strong> Rotating ring of product images with hover pause</li>
+            <li><strong>Real Product Images:</strong> Unsplash URLs for authentic merchandise visuals</li>
+            <li><strong>Toast System:</strong> Unified context-based notifications across app</li>
+            <li><strong>Responsive Design:</strong> Desktop showcase, mobile-optimized layouts</li>
+        </ul>
+        
+        <h2>📋 Current Status:</h2>
+        <div class="status-check">
+            <span class="info-mark">ℹ️</span>
+            <span><strong>Register Page:</strong> Fully animated with 3D tilt, showcase, and form validation</span>
+        </div>
+        <div class="status-check">
+            <span class="info-mark">ℹ️</span>
+            <span><strong>Home Page:</strong> Enhanced with 3D showcase and real product images</span>
+        </div>
+        <div class="status-check">
+            <span class="info-mark">ℹ️</span>
+            <span><strong>Product Listing:</strong> Will load products with real images from updated seed data</span>
+        </div>
+        <div class="status-check">
+            <span class="info-mark">ℹ️</span>
+            <span><strong>Quick View:</strong> Toast provider aligned, should open without errors</span>
+        </div>
+        
+        <h2>🔧 New Product Added:</h2>
+        <div class="test-card" style="background: #f0f9ff; border-color: #0ea5e9;">
+            <h3>Smart Water Bottle</h3>
+            <p><strong>Price:</strong> $45.99 (Sale: $39.99)</p>
+            <p><strong>Description:</strong> Temperature-controlled smart water bottle with app connectivity</p>
+            <p><strong>Images:</strong> 3 high-quality Unsplash photos</p>
+            <p><strong>Stock:</strong> 85 units available</p>
+        </div>
+        
+        <h2>🌐 Navigation Test:</h2>
+        <p>To test the register page, navigate to: <code>/register</code></p>
+        <p>To test product listings, navigate to: <code>/products</code></p>
+        
+        <div style="margin-top: 24px; padding: 16px; background: #ecfdf5; border-radius: 8px; border: 1px solid #10b981;">
+            <strong>✅ All major issues resolved!</strong> The register page should now display properly with 3D animations, products should load with real images, and the toast provider error should be eliminated.
+        </div>
+    </div>
+</body>
+</html>

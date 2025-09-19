@@ -1,0 +1,43 @@
+{
+  "name": "merch-portal-platform",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "@shadcn/ui": "^0.0.4",
+    "prettier": "^3.0.3",
+    "tailwindcss-animate": "^1.0.7",
+    "turbo": "^1.10.16"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express-session": "^1.18.2",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cookie-parser": "^1.4.7",
+    "csrf": "^3.1.0",
+    "express-rate-limit": "^8.0.1",
+    "express-session": "^1.18.2",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.542.0",
+    "swagger-jsdoc": "^6.2.8",
+    "tailwind-merge": "^3.3.1",
+    "zustand": "^5.0.8"
+  }
+}

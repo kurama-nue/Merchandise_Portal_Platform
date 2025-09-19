@@ -1,0 +1,199 @@
+/* Nexus Goods - Auth Pages Custom Styles */
+
+:root {
+  --brand-teal: #0d9488;
+  --brand-amber: #f59e0b;
+  --brand-teal-light: #5eead4;
+  --brand-amber-light: #fcd34d;
+  --brand-teal-dark: #0f766e;
+  --brand-amber-dark: #d97706;
+  --brand-slate: #334155;
+}
+
+/* Enhanced Glass Card Effect */
+.glass-card {
+  position: relative;
+  backdrop-filter: blur(16px);
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-card {
+  background-color: rgba(17, 24, 39, 0.65);
+  border: 1px solid rgba(55, 65, 81, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Gradient Text */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--brand-teal), var(--brand-amber));
+}
+
+/* Diagonal Gradient Text */
+.text-gradient-diagonal {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(135deg, var(--brand-teal), var(--brand-amber));
+}
+
+/* Enhanced Card Flip Animation */
+/* Enhanced 3D Card Flip */
+.card-flip {
+  perspective: 2000px;
+  width: 100%;
+  min-height: 600px;
+  position: relative;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 30px 60px -12px rgba(0, 0, 0, 0.5);
+}
+
+.card-flip.flipped .card-flip-inner {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+.card-flip-front,
+.card-flip-back {
+  position: absolute;
+  width: 100%;
+  min-height: 600px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-flip-front {
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+.card-flip-back {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+/* Enhanced Glass Card Effect */
+.glass-card-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass-card-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(17, 24, 39, 0.7),
+    rgba(17, 24, 39, 0.5)
+  );
+}
+
+/* Hover Effects */
+.hover-glow-premium {
+  transition: all 0.3s ease;
+}
+
+.hover-glow-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 20px 40px -20px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+/* Button Animation */
+.btn-animated {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.btn-animated::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: translateX(-100%);
+}
+
+.btn-animated:hover::before {
+  transform: translateX(100%);
+  transition: all 0.5s ease;
+}
+
+/* Input Field Enhancement */
+.input-enhanced {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.input-enhanced:focus {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 0 0 2px rgba(6, 182, 212, 0.2),
+    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Decorative Elements */
+.auth-decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-teal-light), var(--brand-amber-light));
+  opacity: 0.15;
+  filter: blur(20px);
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}

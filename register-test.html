@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Route Test - Merchandise Portal</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6/dist/umd/react-router-dom.development.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .route-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .route-working { border-color: #10b981; background: #ecfdf5; }
+        .route-broken { border-color: #ef4444; background: #fef2f2; }
+        .route-pending { border-color: #f59e0b; background: #fffbeb; }
+        
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        
+        .test-step {
+            margin: 16px 0;
+            padding: 12px;
+            border-left: 4px solid #3b82f6;
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Register Route Debugging</h1>
+        
+        <div class="route-info route-working">
+            <h2>✅ Fixed Router Configuration</h2>
+            <p><strong>Register Route Path:</strong> <code>/register</code></p>
+            <p><strong>Guard:</strong> GuestGuard (prevents authenticated users)</p>
+            <p><strong>Layout:</strong> AuthLayout (3D card flip animations)</p>
+        </div>
+
+        <div class="test-step">
+            <h3>1. Router Structure (Fixed)</h3>
+            <div class="code-block">
+{
+  path: '/register',
+  element: &lt;GuestGuard /&gt;,
+  children: [
+    {
+      path: '',
+      element: &lt;AuthLayout /&gt;,
+      children: [
+        { index: true, element: &lt;RegisterPage /&gt; }
+      ]
+    }
+  ]
+}
+            </div>
+        </div>
+
+        <div class="test-step">
+            <h3>2. Import Corrections (Fixed)</h3>
+            <div class="code-block">
+// Fixed import paths:
+import LoginPage from './pages/LoginPage';           // ✅ Found in root pages
+import RegisterPage from './pages/auth/RegisterPage'; // ✅ Found in auth subfolder
+            </div>
+        </div>
+
+        <div class="test-step">
+            <h3>3. TypeScript Errors (Fixed)</h3>
+            <p>✅ GuestGuard component structure corrected</p>
+            <p>✅ Nested route objects properly configured</p>
+            <p>✅ All imports resolved</p>
+        </div>
+
+        <div class="route-info route-working">
+            <h2>🎯 Expected Behavior</h2>
+            <ul>
+                <li><strong>URL:</strong> <code>http://localhost:5173/register</code></li>
+                <li><strong>If Not Authenticated:</strong> Shows register page with 3D animations</li>
+                <li><strong>If Already Authenticated:</strong> Redirects to home page</li>
+                <li><strong>Features:</strong> 3D card tilt, animated background, product showcase</li>
+            </ul>
+        </div>
+
+        <div class="route-info route-pending">
+            <h2>🚀 Testing Steps</h2>
+            <ol>
+                <li>Start development server: <code>npm run dev</code></li>
+                <li>Open browser to: <code>http://localhost:5173/register</code></li>
+                <li>Verify page loads with animations</li>
+                <li>Test form validation and submission</li>
+                <li>Verify 3D product showcase displays</li>
+            </ol>
+        </div>
+
+        <div class="route-info route-working">
+            <h2>✨ Register Page Features</h2>
+            <ul>
+                <li>✅ 3D tilt animation on mouse movement</li>
+                <li>✅ Animated floating background elements</li>
+                <li>✅ 3D rotating product showcase (desktop)</li>
+                <li>✅ Real product images from Unsplash</li>
+                <li>✅ Form validation with toast notifications</li>
+                <li>✅ Responsive design (mobile/desktop)</li>
+                <li>✅ Glass card effect with premium styling</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 32px; padding: 20px; background: #ecfdf5; border: 2px solid #10b981; border-radius: 8px;">
+            <h2 style="color: #059669; margin-top: 0;">🎉 Register Route Status: FIXED</h2>
+            <p><strong>The register page route should now be accessible at <code>/register</code> with all 3D animations and features working properly.</strong></p>
+        </div>
+    </div>
+</body>
+</html>

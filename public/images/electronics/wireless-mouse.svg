@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+  <rect x="200" y="260" width="800" height="600" rx="120" fill="#ef4444" opacity="0.08"/>
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="80" fill="#dc2626" font-family="Inter, Arial">Wireless Mouse</text>
+</svg>

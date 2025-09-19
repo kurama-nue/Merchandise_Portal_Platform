@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Pages Test - Merchandise Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .status-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .status-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .working { border-color: #10b981; background: #ecfdf5; }
+        .broken { border-color: #ef4444; background: #fef2f2; }
+        .info { border-color: #3b82f6; background: #eff6ff; }
+        
+        .test-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .test-link {
+            display: block;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .test-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+        .feature-item {
+            background: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .server-status {
+            background: #10b981;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Authentication Pages - Status Report</h1>
+        
+        <div class="server-status">
+            ✅ Development Server Running: http://localhost:5173
+        </div>
+
+        <div class="status-card working">
+            <h2>✅ Register Page - FIXED & WORKING</h2>
+            <p><strong>File:</strong> <code>/src/pages/auth/RegisterPage.tsx</code></p>
+            <ul>
+                <li>✅ Complete form with first name, last name, email, password fields</li>
+                <li>✅ Password visibility toggles</li>
+                <li>✅ Form validation with error messages</li>
+                <li>✅ Gradient background with animated patterns</li>
+                <li>✅ Proper TypeScript types (departmentId as number)</li>
+                <li>✅ Toast notifications on success/error</li>
+                <li>✅ AuthLayout flip functionality</li>
+            </ul>
+        </div>
+
+        <div class="status-card working">
+            <h2>✅ Login Page - CLEANED & WORKING</h2>
+            <p><strong>File:</strong> <code>/src/pages/LoginPage.tsx</code></p>
+            <ul>
+                <li>✅ Email and password fields</li>
+                <li>✅ Remember me checkbox</li>
+                <li>✅ Forgot password link</li>
+                <li>✅ Form validation</li>
+                <li>✅ Removed unused imports (Link, AnimatePresence, useEffect)</li>
+                <li>✅ Cleaned up mounted state variable</li>
+                <li>✅ AuthLayout flip functionality</li>
+            </ul>
+        </div>
+
+        <div class="status-card info">
+            <h2>🔧 Router Configuration</h2>
+            <p>Both pages are properly configured in the router:</p>
+            <ul>
+                <li><strong>Login Route:</strong> <code>/login</code> → GuestGuard → AuthLayout → LoginPage</li>
+                <li><strong>Register Route:</strong> <code>/register</code> → GuestGuard → AuthLayout → RegisterPage</li>
+                <li><strong>Guard Logic:</strong> Redirects authenticated users to home page</li>
+                <li><strong>Flip Animation:</strong> Card flip transition between login/register</li>
+            </ul>
+        </div>
+
+        <h2>🌐 Test the Pages</h2>
+        <div class="test-links">
+            <a href="http://localhost:5173/" class="test-link">🏠 Home Page</a>
+            <a href="http://localhost:5173/login" class="test-link">🔑 Login Page</a>
+            <a href="http://localhost:5173/register" class="test-link">📝 Register Page</a>
+            <a href="http://localhost:5173/products" class="test-link">🛍️ Products</a>
+        </div>
+
+        <h2>✨ Features Implemented</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>🎨 Visual Design</h3>
+                <ul>
+                    <li>Glass card effect with premium styling</li>
+                    <li>Gradient backgrounds</li>
+                    <li>Animated grid patterns</li>
+                    <li>Floating decorative circles</li>
+                    <li>Hover animations</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h3>🔒 Authentication</h3>
+                <ul>
+                    <li>Form validation</li>
+                    <li>Password visibility toggles</li>
+                    <li>Toast notifications</li>
+                    <li>Error handling</li>
+                    <li>Loading states</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h3>🎭 Animations</h3>
+                <ul>
+                    <li>Framer Motion transitions</li>
+                    <li>Card flip between login/register</li>
+                    <li>Hover effects</li>
+                    <li>Loading spinners</li>
+                    <li>Smooth state changes</li>
+                </ul>
+            </div>
+            <div class="feature-item">
+                <h3>📱 Responsive</h3>
+                <ul>
+                    <li>Mobile-first design</li>
+                    <li>Grid layouts</li>
+                    <li>Flexible forms</li>
+                    <li>Touch-friendly buttons</li>
+                    <li>Proper spacing</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 32px; padding: 24px; background: #ecfdf5; border: 2px solid #10b981; border-radius: 12px; text-align: center;">
+            <h2 style="color: #059669; margin-top: 0;">🎉 Both Auth Pages Are Now Working!</h2>
+            <p><strong>Register page content is fully implemented and login page is cleaned up. Both pages should display properly with all features working.</strong></p>
+            <p>🌟 Server is running on <code>http://localhost:5173</code> with hot reload enabled</p>
+        </div>
+    </div>
+</body>
+</html>

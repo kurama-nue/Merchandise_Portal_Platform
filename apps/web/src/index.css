@@ -1,0 +1,196 @@
+/* Import auth styles */
+@import './styles/auth.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 187 100% 42.4%; /* Teal */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 38 92% 50%; /* Amber */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+
+    --radius: 0.75rem;
+
+    --brand-gradient-start: 187 100% 42.4%; /* Teal */
+    --brand-gradient-end: 38 92% 50%; /* Amber */
+    
+    --brand-teal-light: 184 100% 81.6%;
+    --brand-teal: 187 100% 42.4%;
+    --brand-teal-dark: 187 100% 29%;
+    
+    --brand-amber-light: 43 96% 75.3%;
+    --brand-amber: 38 92% 50%;
+    --brand-amber-dark: 32 100% 36.5%;
+    
+    --brand-slate-light: 214 32% 91%;
+    --brand-slate: 215 25% 27%;
+    --brand-slate-dark: 222 47% 11%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 187 100% 42.4%; /* Teal */
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 38 92% 50%; /* Amber */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Nexus Goods - Custom Styles */
+
+/* Custom Glassmorphism Card */
+.glass-card {
+  @apply bg-white bg-opacity-20 backdrop-blur-lg rounded-xl border border-opacity-20 shadow-glass;
+}
+
+.dark .glass-card {
+  @apply bg-gray-900 bg-opacity-20;
+}
+
+/* Enhanced Glass Card with Glow */
+.glass-card-premium {
+  @apply glass-card border-brand-teal-light/30 shadow-[0_8px_32px_rgba(6,182,212,0.2)];
+}
+
+/* Custom Animations */
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.5)];
+}
+
+.hover-glow-amber {
+  @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(245,158,11,0.5)];
+}
+
+.animate-float {
+  @apply animate-[float_3s_ease-in-out_infinite];
+}
+
+.animate-pulse-glow {
+  @apply animate-[pulse-glow_2s_ease-in-out_infinite];
+}
+
+/* Gradient Text */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-teal-amber-gradient;
+}
+
+/* Decorative Elements */
+.decorative-circle {
+  @apply absolute rounded-full opacity-20 animate-rotate-slow;
+}
+
+/* Modern Button Styles */
+.btn-modern {
+  @apply relative overflow-hidden transition-all duration-300 before:absolute before:inset-0 before:translate-x-[-100%] before:translate-y-[-100%] before:rotate-45 before:bg-white before:opacity-20 before:transition-transform hover:before:translate-x-[100%] hover:before:translate-y-[100%] hover:shadow-lg;
+}
+
+/* Toast Styling Fixes */
+[data-state="open"][data-variant="destructive"] {
+  background-color: rgb(239 68 68) !important;
+  color: white !important;
+  border-color: rgb(220 38 38) !important;
+}
+
+[data-state="open"][data-variant="destructive"] * {
+  color: white !important;
+}
+
+[data-state="open"][data-variant="success"] {
+  background-color: rgb(34 197 94) !important;
+  color: white !important;
+  border-color: rgb(21 128 61) !important;
+}
+
+[data-state="open"][data-variant="success"] * {
+  color: white !important;
+}
+
+/* Additional toast overrides for all scenarios */
+.toast-destructive,
+[data-toast="destructive"],
+[data-variant="destructive"] {
+  background-color: #ef4444 !important;
+  color: white !important;
+  border-color: #dc2626 !important;
+}
+
+.toast-destructive *,
+[data-toast="destructive"] *,
+[data-variant="destructive"] * {
+  color: white !important;
+}
+
+.toast-success,
+[data-toast="success"],
+[data-variant="success"] {
+  background-color: #22c55e !important;
+  color: white !important;
+  border-color: #16a34a !important;
+}
+
+.toast-success *,
+[data-toast="success"] *,
+[data-variant="success"] * {
+  color: white !important;
+}
