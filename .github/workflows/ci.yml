@@ -21,10 +21,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install -g turbo
 
       - name: Run linting
-        run: npm run lint
+        run: turbo run lint
 
   test:
     name: Test
