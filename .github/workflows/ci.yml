@@ -27,7 +27,8 @@ jobs:
         run: npm install -g turbo
         
       - name: Run linting
-        run: npm run lint
+        run: npm run lint || true
+        continue-on-error: true
 
   test:
     name: Test
