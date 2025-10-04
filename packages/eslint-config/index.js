@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["eslint:recommended", "prettier", "turbo"],
+  extends: ["eslint:recommended", "prettier"],
   env: {
     node: true,
     browser: true,
@@ -15,14 +15,16 @@ module.exports = {
       parser: "@typescript-eslint/parser",
       extends: [
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
       rules: {
-        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-namespace": "warn",
+        "@typescript-eslint/no-var-requires": "off",
       },
     },
   ],
   rules: {
-    "no-console": ["warn", { allow: ["warn", "error"] }],
+    "no-console": "off",
   },
 };

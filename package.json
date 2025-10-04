@@ -17,11 +17,12 @@
     "@shadcn/ui": "^0.0.4",
     "prettier": "^3.0.3",
     "tailwindcss-animate": "^1.0.7",
-    "turbo": "^latest"
+    "turbo": "^2.3.3"
   },
   "engines": {
     "node": ">=20.0.0"
   },
+  "packageManager": "npm@10.9.2",
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.13",

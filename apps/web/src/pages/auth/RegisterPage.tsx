@@ -142,7 +142,7 @@ const RegisterPage: React.FC = () => {
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
-        departmentId: formData.departmentId ? parseInt(formData.departmentId) : undefined
+        departmentId: formData.departmentId ? parseInt(formData.departmentId) : 0
       };
       
       console.log('Calling register function with:', registrationData);
