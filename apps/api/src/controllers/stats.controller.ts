@@ -155,7 +155,7 @@ export const getDashboardStats = async (req: Request, res: Response) => {
       },
       topProducts: topProductDetails,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -220,10 +220,10 @@ export const getSalesReport = async (req: Request, res: Response) => {
     const totalRevenue = payments.reduce((sum, payment) => sum + Number(payment.amount), 0);
     
     // Group sales by product
-    const productSales = {};
+    const productSales: Record<string, { productId: string; name: string; quantity: number; revenue: number }> = {};
     
     payments.forEach(payment => {
-      payment.order.orderItems.forEach(item => {
+      payment.order.orderItems.forEach((item: any) => {
         const productId = item.productId;
         
         if (!productSales[productId]) {
@@ -248,7 +248,7 @@ export const getSalesReport = async (req: Request, res: Response) => {
       payments,
       productSales: Object.values(productSales),
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

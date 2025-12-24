@@ -1,4 +1,3 @@
-import { Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 
 /**
@@ -36,7 +35,6 @@ export const helmetMiddleware = () => {
     crossOriginOpenerPolicy: { policy: "same-origin" },
     crossOriginResourcePolicy: { policy: "same-origin" },
     dnsPrefetchControl: { allow: false },
-    expectCt: { enforce: true, maxAge: 30 },
     frameguard: { action: "deny" },
     hidePoweredBy: true,
     hsts: {

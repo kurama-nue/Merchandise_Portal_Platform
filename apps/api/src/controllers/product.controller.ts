@@ -97,11 +97,12 @@ export const getProductById = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    const reviews = await Review.find({ product: product._id, status: 'OPEN' })
+    const productData = product as any;
+    const reviews = await Review.find({ product: productData._id, status: 'OPEN' })
       .populate('user', 'firstName lastName')
       .lean();
 
-    const faqs = await FAQ.find({ product: product._id, isPublished: true }).lean();
+    const faqs = await FAQ.find({ product: productData._id, isPublished: true }).lean();
 
     const totalRating = reviews.reduce((sum, r: any) => sum + (r.rating || 0), 0);
     const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;

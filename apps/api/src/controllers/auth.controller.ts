@@ -5,7 +5,6 @@ import { hashPassword, comparePassword } from '../middleware/bcrypt.middleware';
 
 // Removed Prisma; using Mongoose models instead
 import User, { UserRole } from '../models/User';
-import Department from '../models/Department';
 
 // Validation schemas
 const registerSchema = z.object({
@@ -16,11 +15,6 @@ const registerSchema = z.object({
   phone: z.string().optional(),
   departmentId: z.string().optional(),
   role: z.nativeEnum(UserRole).optional(),
-});
-
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
 });
 
 // Generate tokens
@@ -104,7 +98,7 @@ export const register = async (req: Request, res: Response) => {
       accessToken,
       refreshToken,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -153,7 +147,7 @@ export const login = async (req: Request, res: Response) => {
       accessToken,
       refreshToken,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }

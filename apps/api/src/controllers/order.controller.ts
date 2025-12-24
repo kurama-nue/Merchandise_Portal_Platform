@@ -126,7 +126,7 @@ export const createIndividualOrder = async (req: Request, res: Response) => {
       order: order.toJSON(),
       individualOrder: individualOrder.toJSON(),
     });
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     session.endSession();
     
@@ -221,7 +221,7 @@ export const createGroupOrder = async (req: Request, res: Response) => {
       order: order.toJSON(),
       groupOrder: groupOrder.toJSON(),
     });
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     session.endSession();
     
@@ -272,7 +272,7 @@ export const joinGroupOrder = async (req: Request, res: Response) => {
       message: 'Joined group order successfully',
       member: member.toJSON(),
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -337,7 +337,7 @@ export const finalizeGroupOrder = async (req: Request, res: Response) => {
       message: 'Group order finalized successfully',
       groupOrder: groupOrder.toJSON(),
     });
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     session.endSession();
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -393,7 +393,7 @@ export const cancelGroupOrder = async (req: Request, res: Response) => {
       message: 'Group order cancelled successfully',
       groupOrder: groupOrder.toJSON(),
     });
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     session.endSession();
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -465,7 +465,7 @@ export const inviteParticipant = async (req: Request, res: Response) => {
         joinedAt: member.joinedAt
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -527,7 +527,7 @@ export const getUserOrders = async (req: Request, res: Response) => {
       individualOrders,
       groupOrders,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import pRetry from 'p-retry';
+import pRetry, { AbortError } from 'p-retry';
 
 const DEFAULT_RATE = 1; // req/sec
 let lastFetch = 0;
@@ -22,7 +22,7 @@ export async function politeFetch(url: string, init?: RequestInit, rate = DEFAUL
       },
     } as any);
     if (res.status === 429 || res.status >= 500) {
-      throw new pRetry.AbortError(`HTTP ${res.status} for ${url}`);
+      throw new AbortError(`HTTP ${res.status} for ${url}`);
     }
     return res;
   };

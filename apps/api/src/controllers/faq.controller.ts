@@ -38,7 +38,7 @@ export const createFAQ = async (req: Request, res: Response) => {
       message: 'FAQ created successfully',
       faq,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -68,7 +68,7 @@ export const getProductFAQs = async (req: Request, res: Response) => {
     
     const faqs = await FAQ.find(filter).sort({ createdAt: -1 });
     res.json(faqs);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: (error as Error).message });
   }
 };
@@ -113,7 +113,7 @@ export const updateFAQ = async (req: Request, res: Response) => {
       message: 'FAQ updated successfully',
       faq: updatedFAQ,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -140,7 +140,7 @@ export const deleteFAQ = async (req: Request, res: Response) => {
     await FAQ.findByIdAndDelete(id);
     
     res.json({ message: 'FAQ deleted successfully' });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: (error as Error).message });
   }
 };

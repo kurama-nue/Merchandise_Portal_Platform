@@ -18,7 +18,7 @@ const FAQSchema = new Schema<FAQDoc>(
 );
 
 FAQSchema.set('toJSON', {
-  transform: (_, ret) => {
+  transform: (_: any, ret: any) => {
     ret.id = ret._id.toString();
     delete ret._id;
     delete ret.__v;

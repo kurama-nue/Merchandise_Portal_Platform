@@ -6,13 +6,14 @@ import {
   deleteFAQ 
 } from '../controllers/faq.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
+import { UserRole } from '../models/User';
 
 const router = Router();
 
 // Protected routes
-router.post('/', authenticate, authorize(['ADMIN', 'MANAGER']), createFAQ);
+router.post('/', authenticate, authorize([UserRole.ADMIN, UserRole.MANAGER]), createFAQ);
 router.get('/product/:productId', authenticate, getProductFAQs);
-router.patch('/:id', authenticate, authorize(['ADMIN', 'MANAGER']), updateFAQ);
-router.delete('/:id', authenticate, authorize(['ADMIN', 'MANAGER']), deleteFAQ);
+router.patch('/:id', authenticate, authorize([UserRole.ADMIN, UserRole.MANAGER]), updateFAQ);
+router.delete('/:id', authenticate, authorize([UserRole.ADMIN, UserRole.MANAGER]), deleteFAQ);
 
 export default router;
