@@ -21,7 +21,6 @@ const distributionScheduleSchema = z.object({
 // Create distribution schedule
 export const createDistributionSchedule = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
     const validatedData = distributionScheduleSchema.parse(req.body);
     
     // Check if user is admin or manager

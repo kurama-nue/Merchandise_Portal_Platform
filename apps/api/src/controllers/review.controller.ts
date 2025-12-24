@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import Review from '../models/Review';
 import Product from '../models/Product';
-
-const prisma = new PrismaClient();
 
 // zod schema remains unchanged
 const reviewSchema = z.object({

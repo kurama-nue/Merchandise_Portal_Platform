@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import crypto from 'crypto';
-import axios from 'axios';
 
 const prisma = new PrismaClient();
 
