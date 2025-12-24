@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["eslint:recommended", "prettier", "turbo"],
+  extends: ["eslint:recommended", "prettier"],
   env: {
     node: true,
     browser: true,
