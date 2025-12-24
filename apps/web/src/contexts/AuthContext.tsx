@@ -18,7 +18,7 @@ export interface RegisterData {
   firstName: string;
   lastName: string;
   phone: string;
-  departmentId: number;
+  departmentId?: number;
 }
 
 export interface AuthContextType {

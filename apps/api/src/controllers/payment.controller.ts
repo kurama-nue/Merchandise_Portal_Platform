@@ -98,7 +98,7 @@ export const createRazorpayOrder = async (req: Request, res: Response) => {
       razorpayOrder,
       key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_key_id', // For frontend integration
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -178,7 +178,7 @@ export const verifyRazorpayPayment = async (req: Request, res: Response) => {
       message: 'Payment verified successfully',
       payment: updatedPayment,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -231,7 +231,7 @@ export const handleRazorpayWebhook = async (req: Request, res: Response) => {
     }
     
     res.json({ message: 'Webhook processed successfully' });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Webhook error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }

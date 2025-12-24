@@ -44,7 +44,7 @@ export const createReview = async (req: Request, res: Response) => {
       message: 'Review created successfully',
       review,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -77,7 +77,7 @@ export const getProductReviews = async (req: Request, res: Response) => {
       .sort({ createdAt: -1 });
     
     res.json(reviews);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: (error as Error).message });
   }
 };
@@ -105,7 +105,7 @@ export const updateReviewStatus = async (req: Request, res: Response) => {
       message: 'Review status updated successfully',
       review,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: (error as Error).message });
   }
 };

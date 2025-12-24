@@ -98,7 +98,7 @@ export const register = async (req: Request, res: Response) => {
       accessToken,
       refreshToken,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -147,7 +147,7 @@ export const login = async (req: Request, res: Response) => {
       accessToken,
       refreshToken,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }

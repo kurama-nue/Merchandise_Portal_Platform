@@ -155,7 +155,7 @@ export const getDashboardStats = async (req: Request, res: Response) => {
       },
       topProducts: topProductDetails,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -248,7 +248,7 @@ export const getSalesReport = async (req: Request, res: Response) => {
       payments,
       productSales: Object.values(productSales),
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

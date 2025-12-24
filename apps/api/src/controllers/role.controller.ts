@@ -14,7 +14,7 @@ export const getRoles = async (_req: Request, res: Response) => {
   try {
     const roles = Object.values(UserRole);
     res.status(200).json({ roles });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: (error as Error).message });
   }
 };
@@ -48,7 +48,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
         role: user.role,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }

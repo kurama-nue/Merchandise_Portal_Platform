@@ -78,7 +78,7 @@ export const createDistributionSchedule = async (req: Request, res: Response) =>
       message: 'Distribution schedule created successfully',
       schedule: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Validation error', errors: error.errors });
     }
@@ -119,7 +119,7 @@ export const getDistributionSchedules = async (req: Request, res: Response) => {
     });
     
     res.json(schedules);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -145,7 +145,7 @@ export const getDistributionScheduleById = async (req: Request, res: Response) =
     }
     
     res.json(schedule);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -199,7 +199,7 @@ export const updateDistributionStatus = async (req: Request, res: Response) => {
       message: 'Distribution schedule status updated successfully',
       schedule,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -250,7 +250,7 @@ export const assignUserToDistributionItem = async (req: Request, res: Response) 
       message: 'User assigned to distribution item successfully',
       item: updatedItem,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
