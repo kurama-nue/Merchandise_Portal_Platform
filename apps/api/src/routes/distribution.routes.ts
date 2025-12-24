@@ -7,6 +7,7 @@ import {
   assignUserToDistributionItem,
 } from '../controllers/distribution.controller';
 import { authenticate, authorize } from '../middleware/auth.middleware';
+import { UserRole } from '../models/User';
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.get('/schedules/:id', authenticate, getDistributionScheduleById);
 router.post(
   '/schedules',
   authenticate,
-  authorize(['ADMIN', 'MANAGER']),
+  authorize([UserRole.ADMIN, UserRole.MANAGER]),
   createDistributionSchedule
 );
 
@@ -28,7 +29,7 @@ router.post(
 router.patch(
   '/schedules/:id/status',
   authenticate,
-  authorize(['ADMIN', 'MANAGER']),
+  authorize([UserRole.ADMIN, UserRole.MANAGER]),
   updateDistributionStatus
 );
 
@@ -36,7 +37,7 @@ router.patch(
 router.post(
   '/items/:itemId/assign',
   authenticate,
-  authorize(['ADMIN', 'MANAGER']),
+  authorize([UserRole.ADMIN, UserRole.MANAGER]),
   assignUserToDistributionItem
 );
 

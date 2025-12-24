@@ -8,6 +8,13 @@ import Tokens from 'csrf';
  * It generates and validates CSRF tokens to ensure that requests come from the legitimate source.
  */
 
+// Extend Express Session to include csrfSecret
+declare module 'express-session' {
+  interface SessionData {
+    csrfSecret?: string;
+  }
+}
+
 // Create a new CSRF token generator
 const tokens = new Tokens();
 
@@ -18,9 +25,9 @@ export const generateCsrfToken = (req: Request, res: Response, next: NextFunctio
     return next();
   }
   
-  // Generate a new secret if one doesn't exist in the session
+  // Session must exist for CSRF tokens
   if (!req.session) {
-    req.session = {};
+    return res.status(500).json({ message: 'Session not initialized' });
   }
   
   if (!req.session.csrfSecret) {
